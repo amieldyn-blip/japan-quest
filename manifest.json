@@ -1,0 +1,19 @@
+{
+  "name": "Japan Quest — הרפתקה ביפן",
+  "short_name": "Japan Quest",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#10132B",
+  "theme_color": "#10132B",
+  "description": "Jeu bilingue Hébreu/Anglais pour découvrir le Japon (hors-ligne).",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
