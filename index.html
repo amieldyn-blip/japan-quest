@@ -295,6 +295,14 @@
   .run-btn.jump{background:var(--red); color:#fff; width:clamp(56px,17vw,72px); height:clamp(56px,17vw,72px); font-size:clamp(26px,8vw,32px);}
   .run-btn.zbtn{width:clamp(42px,12vw,46px)!important; height:clamp(42px,12vw,46px)!important; font-size:clamp(18px,5vw,20px);}
 
+  /* Mode Parent / Admin : éditeurs */
+  #adminView input[type=text], #adminView input[type=number], #adminView input:not([type]){ font-size:15px; padding:8px 10px; border-radius:10px; border:2px solid #d8cfbd; background:#fffdf8; color:var(--ink); font-family:inherit; min-width:0; }
+  #adminView input:focus{ outline:none; border-color:var(--red); }
+  #adminView input[type=radio]{ width:20px; height:20px; }
+  #adminView label{ font-weight:800; display:block; margin:8px 0 4px; color:var(--ink); font-size:14px; }
+  #adminView .form-card{ padding:12px; }
+  #adminView .sec-title{ margin:14px 2px 4px; }
+
   /* Chasse au trésor : diplôme */
   .diploma{background:#fffdf8; border:3px double var(--gold-deep); border-radius:14px; padding:14px; color:var(--ink); margin-top:6px; box-shadow:inset 0 0 0 1px var(--gold);}
   .diploma p{line-height:1.5;}
@@ -353,6 +361,7 @@
     <p class="subtitle" data-t="whoPlays">מי משחק?</p>
     <div class="profile-list" id="profileList"></div>
     <p class="hint" data-t="profileHint">כל אחד עם השמירה שלו — ממשיכים בדיוק מאיפה שעצרתם.</p>
+    <button class="chip" id="adminBtn" style="margin:14px auto 0">🔧 <span data-t="admin">הורים</span></button>
   </div>
 
   <!-- ÉCRAN 2 : NOUVEAU PROFIL -->
@@ -419,6 +428,13 @@
   <div class="screen" id="scr-day">
     <div id="dayView"></div>
   </div>
+
+  <!-- ÉCRAN 9 : MODE PARENT / ADMIN -->
+  <div class="screen" id="scr-admin">
+    <h1 class="title" style="font-size:clamp(22px,6vw,34px)">🔧 <span data-t="adminTitle">מצב הורים</span></h1>
+    <div class="rule"></div>
+    <div id="adminView" style="margin-top:10px"></div>
+  </div>
 </div>
 
 <div class="toast" id="toast" style="display:none"><div></div></div>
@@ -450,6 +466,10 @@ const T = {
     treasure:"אוצר", tonightChapter:"פרק הערב", chapter:"פרק", tonightIntro:"ענו על השאלות, נחשו את מחר ופתרו את החידה כדי לזכות בחלק מהאוצר!",
     recallTitle:"מה עשינו היום?", guessTomorrow:"מה יהיה מחר?", riddleTitle:"חידה 🧩", challengeTitle:"משימה למחר!", challengeTodo:"נעשה את זה מחר",
     treasurePieceWon:"זכיתם בחלק מהאוצר! 🧩", treasureMap:"מפת האוצר", treasureLockedHint:"סיימו כל יום כדי לפתוח את האוצר!", finalTreasure:"מצאתם את האוצר!", diploma:"תעודת מגלה יפן", huntLocked:"סיימו קודם את הפרק של אתמול 🔒",
+    admin:"הורים", adminTitle:"מצב הורים 🔧", setPin:"בחרו קוד בן 4 ספרות", enterPin:"הזינו קוד", wrongPin:"קוד שגוי",
+    editItinerary:"עריכת מסלול", editHunt:"עריכת חידות ואוצר", managePlayers:"ניהול שחקנים", resetUnlock:"איפוס ופתיחה", changePin:"שנה קוד",
+    addDay:"הוסף יום", addVisit:"הוסף ביקור", addQuestion:"הוסף שאלה", del:"מחק",
+    unlockAll:"פתח את כל הפרקים", resetTrip:"אפס את הטיול", resetPlayer:"אפס שחקן", factory:"אפס הכול (מחיקה מלאה)", secretMsg:"מסר סודי (סוף)", treasurePiece:"חלק האוצר",
     ourTrip:"הטיול שלנו", tripSub:"יום־יום ביפן", day:"יום", visits:"ביקורים", doneToday:"בוצע", journal:"יומן מסע",
     notes:"מה עשינו היום?", mood:"איך היה היום?", favorite:"הרגע הכי כיף:", stickers:"מדבקות",
     dayQuiz:"חידון היום", startDayQuiz:"🧠 חידון היום", noVisits:"קודם סמנו ביקורים ליום הזה 🙂",
@@ -483,6 +503,10 @@ const T = {
     treasure:"Treasure", tonightChapter:"Tonight's chapter", chapter:"Chapter", tonightIntro:"Answer the questions, guess tomorrow and solve the riddle to win a piece of the treasure!",
     recallTitle:"What did we do today?", guessTomorrow:"What about tomorrow?", riddleTitle:"Riddle 🧩", challengeTitle:"Challenge for tomorrow!", challengeTodo:"We'll do it tomorrow",
     treasurePieceWon:"You won a treasure piece! 🧩", treasureMap:"Treasure map", treasureLockedHint:"Finish every day to open the treasure!", finalTreasure:"You found the treasure!", diploma:"Japan Explorer Diploma", huntLocked:"Finish yesterday's chapter first 🔒",
+    admin:"Parent", adminTitle:"Parent mode 🔧", setPin:"Choose a 4-digit code", enterPin:"Enter code", wrongPin:"Wrong code",
+    editItinerary:"Edit itinerary", editHunt:"Edit riddles & treasure", managePlayers:"Manage players", resetUnlock:"Reset & unlock", changePin:"Change code",
+    addDay:"Add day", addVisit:"Add visit", addQuestion:"Add question", del:"Delete",
+    unlockAll:"Unlock all chapters", resetTrip:"Reset the trip", resetPlayer:"Reset player", factory:"Reset everything (wipe)", secretMsg:"Secret message (end)", treasurePiece:"Treasure piece",
     ourTrip:"Our trip", tripSub:"Day by day in Japan", day:"Day", visits:"Visits", doneToday:"done", journal:"Travel journal",
     notes:"What did we do today?", mood:"How was today?", favorite:"Best moment:", stickers:"Stickers",
     dayQuiz:"Today's quiz", startDayQuiz:"🧠 Today's quiz", noVisits:"Tick some visits for this day first 🙂",
@@ -728,7 +752,7 @@ const HUNT_SECRET = {he:"מזל טוב, אלופי יפן! 🏆 גיליתם א�
    3) ÉTAT + SAUVEGARDE (localStorage) — reprise là où on s'arrête
    ================================================================ */
 const SAVE_KEY = 'japan-adv-v1';
-let state = { lang:'he', sound:true, profiles:[], activeId:null, trip:null };
+let state = { lang:'he', sound:true, profiles:[], activeId:null, trip:null, adminPin:null };
 
 function load(){
   try{ const raw = localStorage.getItem(SAVE_KEY); if(raw) state = Object.assign(state, JSON.parse(raw)); }catch(e){}
@@ -1016,6 +1040,7 @@ $('#navPassport').onclick=()=>{ sfxTap(); openPassport(); };
 $('#navTrip').onclick=()=>{ sfxTap(); openTrip(); };
 $('#shareTripBtn').onclick=()=>{ sfxTap(); exportTrip(); };
 $('#treasureBtn').onclick=()=>{ sfxTap(); openTreasure(); };
+$('#adminBtn').onclick=()=>{ sfxTap(); adminAccess(); };
 
 /* ================================================================
    8b) NOTRE VOYAGE : planning + carnet + quiz du jour
@@ -1417,7 +1442,7 @@ function startDayQuiz(day){
 /* ================================================================
    CHASSE AU TRÉSOR : chapitre du soir par jour
    ================================================================ */
-function huntUnlocked(idx){ if(idx<=0) return true; const prev=state.trip.days[idx-1]; return !!(prev && prev.huntDone); }
+function huntUnlocked(idx){ if(state.trip.unlockAll) return true; if(idx<=0) return true; const prev=state.trip.days[idx-1]; return !!(prev && prev.huntDone); }
 function huntQToItem(q){ return {emo:q.emo, qText:txt(q.q), qHTML:txt(q.q), opts:q.opts.map(o=>({lbl:txt(o), emo:o.emo})), ci:q.correct, correctLabel:txt(q.opts[q.correct])}; }
 function huntTitleThen(title, cb){
   showScreen('scr-game');
@@ -1480,7 +1505,7 @@ function finalTreasure(){
   $('#game-area').innerHTML=`<div class="card"><div class="big-emoji">🏆</div>
     <div class="q-text">${t('finalTreasure')}</div>
     <div style="font-size:36px;margin:10px 0">${tiles}</div>
-    <div class="diploma"><div style="font-weight:800;font-size:18px">🎖️ ${t('diploma')}</div><p style="margin-top:8px">${esc(txt(HUNT_SECRET))}</p></div>
+    <div class="diploma"><div style="font-weight:800;font-size:18px">🎖️ ${t('diploma')}</div><p style="margin-top:8px">${esc(txt(state.trip.secret||HUNT_SECRET))}</p></div>
     <button class="big-btn green" id="trDone" style="justify-content:center;margin-top:14px"><span>${t('continue')}</span></button></div>`;
   setTimeout(()=>{ burst(innerWidth/2, innerHeight/3, 80); sfxWin(); }, 200);
   $('#trDone').onclick=()=>{ sfxTap(); openTrip(); };
@@ -1492,11 +1517,173 @@ function openTreasure(){
   ov.innerHTML=`<div class="box"><div class="big-emoji">💎</div><div class="q-text">${t('treasureMap')}</div>
     <div style="margin:12px 0">${tiles}</div>
     <div style="font-weight:800;color:var(--gold-deep)">${doneCount}/${days.length}</div>
-    ${all?`<div class="diploma" style="margin-top:12px"><b>🎖️ ${t('diploma')}</b><p style="margin-top:6px">${esc(txt(HUNT_SECRET))}</p></div>`
+    ${all?`<div class="diploma" style="margin-top:12px"><b>🎖️ ${t('diploma')}</b><p style="margin-top:6px">${esc(txt(state.trip.secret||HUNT_SECRET))}</p></div>`
         :`<p class="hint" style="color:var(--ink-soft);margin-top:10px">${t('treasureLockedHint')}</p>`}
     <button class="big-btn green" id="trvClose" style="justify-content:center;margin-top:12px"><span>${t('continue')}</span></button></div>`;
   document.body.appendChild(ov); if(all){ burst(innerWidth/2, innerHeight/3, 50); }
   $('#trvClose').onclick=()=>{ sfxTap(); ov.remove(); };
+}
+
+/* ================================================================
+   MODE PARENT / ADMIN (protégé par code PIN) — édite le contenu en direct
+   ================================================================ */
+function adminAccess(){ pinPrompt(state.adminPin ? t('enterPin') : t('setPin'), state.adminPin ? 'enter' : 'set'); }
+function pinPrompt(title, mode){
+  const ov=document.createElement('div'); ov.className='overlay';
+  ov.innerHTML=`<div class="box"><div class="big-emoji">🔒</div><div class="q-text">${title}</div>
+    <input id="pinIn" inputmode="numeric" maxlength="4" style="font-size:30px;text-align:center;letter-spacing:10px;width:170px;padding:10px;border-radius:12px;border:2px solid #d8cfbd;background:#fffdf8;color:var(--ink);margin:12px auto;display:block">
+    <div id="pinErr" style="color:var(--bad);font-weight:800;min-height:20px"></div>
+    <div style="display:flex;gap:10px;justify-content:center">
+      <button class="big-btn green" id="pinOk" style="justify-content:center"><span>${t('startGame')}</span></button>
+      <button class="big-btn ghost" id="pinCancel" style="justify-content:center"><span>${t('cancel')}</span></button>
+    </div></div>`;
+  document.body.appendChild(ov);
+  const inp=$('#pinIn'); setTimeout(()=>{ try{inp.focus();}catch(e){} },60);
+  $('#pinCancel').onclick=()=>{ sfxTap(); ov.remove(); };
+  $('#pinOk').onclick=()=>{ const val=(inp.value||'').replace(/\D/g,'');
+    if(val.length!==4){ $('#pinErr').textContent='••••'; return; }
+    if(mode==='set'){ state.adminPin=val; save(); sfxTap(); ov.remove(); openAdmin(); }
+    else { if(val===state.adminPin){ sfxTap(); ov.remove(); openAdmin(); } else { $('#pinErr').textContent=t('wrongPin'); inp.value=''; sfxBad(); } }
+  };
+}
+function adminHeader(title){
+  return `<div style="display:flex;align-items:center;gap:10px;margin-bottom:8px"><button class="chip" id="aBack">↩︎</button><b style="font-size:19px;color:var(--washi)">${title}</b></div>`;
+}
+function openAdmin(){
+  backAction=renderProfiles;
+  const items=[['🗺️',t('editItinerary'),adminItinerary],['💎',t('editHunt'),adminHunt],['👤',t('managePlayers'),adminPlayers],['🔄',t('resetUnlock'),adminReset],['🔑',t('changePin'),()=>pinPrompt(t('setPin'),'set')]];
+  const v=$('#adminView'); v.oninput=null; v.onclick=null; v.onchange=null; v.innerHTML='';
+  items.forEach(([e,l,fn])=>{ const b=document.createElement('button'); b.className='big-btn ghost'; b.style.justifyContent='flex-start';
+    b.innerHTML=`<span class="emo">${e}</span><span>${l}</span>`; b.onclick=()=>{ sfxTap(); fn(); }; v.appendChild(b); });
+  showScreen('scr-admin'); applyI18nStatic();
+}
+
+/* ---- Éditeur d'itinéraire ---- */
+function adminItinerary(){
+  const v=$('#adminView');
+  v.innerHTML=adminHeader(t('editItinerary'))+ state.trip.days.map((d,di)=>`
+    <div class="form-card" style="margin-bottom:10px">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b>${t('day')} ${di+1}</b><button class="chip" data-action="delDay" data-d="${di}" style="color:var(--bad)">🗑️</button></div>
+      <label>📅 ${t('day')}</label><input type="text" data-d="${di}" data-f="date" value="${esc(d.date)}" style="width:100%">
+      <label>${state.lang==='he'?'עיר':'City'} · emoji</label>
+      <div style="display:flex;gap:6px"><input type="text" data-d="${di}" data-f="emo" value="${esc(d.emo)}" style="width:56px"><input type="text" data-d="${di}" data-f="cityHe" value="${esc(d.city.he)}" placeholder="עברית" style="flex:1"><input type="text" data-d="${di}" data-f="cityEn" value="${esc(d.city.en)}" placeholder="EN" style="flex:1"></div>
+      <label>${t('visits')}</label>
+      ${d.visits.map((vi,ii)=>`<div style="display:flex;gap:6px;margin:4px 0;align-items:center">
+        <input type="text" data-d="${di}" data-v="${ii}" data-f="emo" value="${esc(vi.emo)}" style="width:52px">
+        <input type="text" data-d="${di}" data-v="${ii}" data-f="nameHe" value="${esc(vi.name.he)}" placeholder="עברית" style="flex:1">
+        <input type="text" data-d="${di}" data-v="${ii}" data-f="nameEn" value="${esc(vi.name.en)}" placeholder="EN" style="flex:1">
+        <button class="chip" data-action="delVisit" data-d="${di}" data-v="${ii}" style="color:var(--bad)">✕</button></div>`).join('')}
+      <button class="chip" data-action="addVisit" data-d="${di}" style="margin-top:6px">➕ ${t('addVisit')}</button>
+    </div>`).join('') + `<button class="big-btn gold" data-action="addDay" style="justify-content:center"><span>➕ ${t('addDay')}</span></button>`;
+  $('#aBack').onclick=()=>{ sfxTap(); openAdmin(); };
+  v.oninput=(e)=>{ const el2=e.target; if(el2.dataset.d==null)return; const d=state.trip.days[+el2.dataset.d]; const f=el2.dataset.f;
+    if(el2.dataset.v!=null){ const vv=d.visits[+el2.dataset.v]; if(f==='nameHe')vv.name.he=el2.value; else if(f==='nameEn')vv.name.en=el2.value; else if(f==='emo')vv.emo=el2.value; }
+    else { if(f==='date')d.date=el2.value; else if(f==='cityHe')d.city.he=el2.value; else if(f==='cityEn')d.city.en=el2.value; else if(f==='emo')d.emo=el2.value; }
+    save(); };
+  v.onclick=(e)=>{ const a=e.target.closest('[data-action]'); if(!a)return; const act=a.dataset.action;
+    if(act==='addDay') state.trip.days.push({id:'d'+Date.now(),date:'',city:{he:'',en:''},emo:'📍',quizDone:false,huntDone:false,challengeDone:false,journal:{notes:'',mood:0,favorite:'',stickers:[]},visits:[]});
+    else if(act==='delDay') state.trip.days.splice(+a.dataset.d,1);
+    else if(act==='addVisit') state.trip.days[+a.dataset.d].visits.push({id:'v'+Date.now(),name:{he:'',en:''},emo:'📍',done:false});
+    else if(act==='delVisit') state.trip.days[+a.dataset.d].visits.splice(+a.dataset.v,1);
+    else return;
+    save(); adminItinerary();
+  };
+}
+
+/* ---- Éditeur chasse au trésor ---- */
+function adminHunt(){
+  const v=$('#adminView');
+  v.oninput=null; v.onchange=null;
+  v.innerHTML=adminHeader(t('editHunt'))+ state.trip.days.map((d,di)=>`<button class="big-btn ghost" data-di="${di}" style="justify-content:flex-start"><span class="emo">${d.emo}</span><span>${t('day')} ${di+1} · ${esc(txt(d.city))}</span></button>`).join('');
+  $('#aBack').onclick=()=>{ sfxTap(); openAdmin(); };
+  v.onclick=(e)=>{ const b=e.target.closest('[data-di]'); if(b){ sfxTap(); adminHuntDay(+b.dataset.di); } };
+}
+function renderAdminQ(sec,qi,q){
+  return `<div class="form-card" style="margin:6px 0">
+    <div style="display:flex;justify-content:space-between;align-items:center"><b>#${qi+1}</b>${sec==='riddle'?'':`<button class="chip" data-action="delQ" data-sec="${sec}" data-qi="${qi}" style="color:var(--bad)">🗑️</button>`}</div>
+    <div style="display:flex;gap:6px;margin-top:4px"><input data-sec="${sec}" data-qi="${qi}" data-f="emo" value="${esc(q.emo||'')}" style="width:52px" placeholder="🙂"><input data-sec="${sec}" data-qi="${qi}" data-f="qHe" value="${esc(q.q.he)}" placeholder="שאלה" style="flex:1"><input data-sec="${sec}" data-qi="${qi}" data-f="qEn" value="${esc(q.q.en)}" placeholder="question" style="flex:1"></div>
+    ${q.opts.map((o,oi)=>`<div style="display:flex;gap:6px;align-items:center;margin:3px 0">
+      <input type="radio" name="c_${sec}_${qi}" data-action="setCorrect" data-sec="${sec}" data-qi="${qi}" data-oi="${oi}" ${q.correct===oi?'checked':''}>
+      <input data-sec="${sec}" data-qi="${qi}" data-oi="${oi}" data-f="optHe" value="${esc(o.he)}" placeholder="עברית" style="flex:1">
+      <input data-sec="${sec}" data-qi="${qi}" data-oi="${oi}" data-f="optEn" value="${esc(o.en)}" placeholder="EN" style="flex:1">
+      <button class="chip" data-action="delOpt" data-sec="${sec}" data-qi="${qi}" data-oi="${oi}" style="color:var(--bad)">✕</button></div>`).join('')}
+    <button class="chip" data-action="addOpt" data-sec="${sec}" data-qi="${qi}">➕</button>
+  </div>`;
+}
+function adminHuntDay(di){
+  const v=$('#adminView'); const d=state.trip.days[di];
+  if(!d.hunt) d.hunt={recall:[],guess:[],riddle:null,challenge:{emo:'🎯',text:{he:'',en:''}},piece:'🧩'};
+  if(!state.trip.secret) state.trip.secret=JSON.parse(JSON.stringify(HUNT_SECRET));
+  const H=d.hunt;
+  if(!H.riddle) H.riddle={emo:'🧩',q:{he:'',en:''},opts:[{he:'',en:''},{he:'',en:''}],correct:0};
+  if(!H.challenge) H.challenge={emo:'🎯',text:{he:'',en:''}};
+  const block=(sec)=> `<div class="sec-title">${sec==='recall'?t('recallTitle'):t('guessTomorrow')}</div>`+ H[sec].map((q,qi)=>renderAdminQ(sec,qi,q)).join('') + `<button class="chip" data-action="addQ" data-sec="${sec}">➕ ${t('addQuestion')}</button>`;
+  v.innerHTML=adminHeader(t('editHunt')+' · '+esc(txt(d.city)))
+    + block('recall') + block('guess')
+    + `<div class="sec-title">${t('riddleTitle')}</div>`+ renderAdminQ('riddle',0,H.riddle)
+    + `<div class="sec-title">${t('challengeTitle')}</div><div class="form-card"><div style="display:flex;gap:6px"><input data-ch="emo" value="${esc(H.challenge.emo||'🎯')}" style="width:52px"><input data-ch="he" value="${esc(H.challenge.text.he)}" placeholder="עברית" style="flex:1"><input data-ch="en" value="${esc(H.challenge.text.en)}" placeholder="EN" style="flex:1"></div></div>`
+    + `<div class="sec-title">${t('treasurePiece')}</div><div class="form-card"><input id="pieceIn" value="${esc(H.piece||'🧩')}" style="width:80px"></div>`
+    + `<div class="sec-title">${t('secretMsg')}</div><div class="form-card"><input id="secHe" value="${esc(state.trip.secret.he)}" placeholder="עברית" style="width:100%;margin-bottom:6px"><input id="secEn" value="${esc(state.trip.secret.en)}" placeholder="EN" style="width:100%"></div>`;
+  $('#aBack').onclick=()=>{ sfxTap(); adminHunt(); };
+  function getArr(sec){ return sec==='recall'?H.recall : sec==='guess'?H.guess : null; }
+  function getQ(sec,qi){ return sec==='riddle'? H.riddle : getArr(sec)[qi]; }
+  v.oninput=(e)=>{ const el2=e.target;
+    if(el2.id==='pieceIn'){ H.piece=el2.value; save(); return; }
+    if(el2.id==='secHe'){ state.trip.secret.he=el2.value; save(); return; }
+    if(el2.id==='secEn'){ state.trip.secret.en=el2.value; save(); return; }
+    if(el2.dataset.ch){ if(el2.dataset.ch==='emo')H.challenge.emo=el2.value; else if(el2.dataset.ch==='he')H.challenge.text.he=el2.value; else H.challenge.text.en=el2.value; save(); return; }
+    const sec=el2.dataset.sec; if(sec==null)return; const q=getQ(sec,+el2.dataset.qi); const f=el2.dataset.f;
+    if(el2.dataset.oi!=null){ const o=q.opts[+el2.dataset.oi]; if(f==='optHe')o.he=el2.value; else if(f==='optEn')o.en=el2.value; }
+    else { if(f==='emo')q.emo=el2.value; else if(f==='qHe')q.q.he=el2.value; else if(f==='qEn')q.q.en=el2.value; }
+    save();
+  };
+  v.onchange=(e)=>{ const el2=e.target; if(el2.dataset.action==='setCorrect'){ getQ(el2.dataset.sec,+el2.dataset.qi).correct=+el2.dataset.oi; save(); } };
+  v.onclick=(e)=>{ const a=e.target.closest('[data-action]'); if(!a)return; const act=a.dataset.action, sec=a.dataset.sec;
+    if(act==='addQ') getArr(sec).push({emo:'❓',q:{he:'',en:''},opts:[{he:'',en:''},{he:'',en:''}],correct:0});
+    else if(act==='delQ') getArr(sec).splice(+a.dataset.qi,1);
+    else if(act==='addOpt') getQ(sec,+a.dataset.qi).opts.push({he:'',en:''});
+    else if(act==='delOpt'){ const q=getQ(sec,+a.dataset.qi); q.opts.splice(+a.dataset.oi,1); if(q.correct>=q.opts.length)q.correct=0; }
+    else return;
+    save(); adminHuntDay(di);
+  };
+}
+
+/* ---- Gestion des joueurs ---- */
+function adminPlayers(){
+  const v=$('#adminView');
+  v.oninput=null; v.onclick=null; v.onchange=null;
+  v.innerHTML=adminHeader(t('managePlayers'))+ (state.profiles.map((p,pi)=>`
+    <div class="form-card" style="margin-bottom:8px">
+      <div style="display:flex;gap:8px;align-items:center"><span style="font-size:28px">${p.avatar}</span>
+        <input data-p="${pi}" data-f="name" value="${esc(p.name)}" style="flex:1">
+        <input data-p="${pi}" data-f="age" type="number" value="${p.age}" style="width:66px"></div>
+      <div style="font-size:13px;color:var(--ink-soft);margin-top:4px">⭐ ${p.starsTotal||0} · 🎴 ${(p.stamps||[]).length}</div>
+      <div style="display:flex;gap:8px;margin-top:8px"><button class="chip" data-action="resetP" data-p="${pi}">🔄 ${t('resetPlayer')}</button><button class="chip" data-action="delP" data-p="${pi}" style="color:var(--bad)">🗑️ ${t('del')}</button></div>
+    </div>`).join('') || `<p class="hint" style="color:var(--ink-soft)">—</p>`);
+  $('#aBack').onclick=()=>{ sfxTap(); openAdmin(); };
+  v.oninput=(e)=>{ const el2=e.target; if(el2.dataset.p==null)return; const p=state.profiles[+el2.dataset.p];
+    if(el2.dataset.f==='name') p.name=el2.value; else if(el2.dataset.f==='age'){ const a=parseInt(el2.value,10); if(a){ p.age=a; p.band=bandOf(a); } }
+    save(); };
+  v.onclick=(e)=>{ const a=e.target.closest('[data-action]'); if(!a)return; const pi=+a.dataset.p;
+    if(a.dataset.action==='resetP'){ const p=state.profiles[pi]; p.starsTotal=0; p.stages={}; p.stamps=[]; p.words=[]; p.stats={games:0}; save(); adminPlayers(); }
+    else if(a.dataset.action==='delP'){ askConfirm(t('resetAsk')+' '+state.profiles[pi].name+' ?', ()=>{ const id=state.profiles[pi].id; state.profiles.splice(pi,1); if(state.activeId===id) state.activeId=null; save(); adminPlayers(); }); }
+  };
+}
+
+/* ---- Réinitialiser / débloquer ---- */
+function adminReset(){
+  const v=$('#adminView'); v.oninput=null; v.onchange=null;
+  const on=!!state.trip.unlockAll;
+  v.innerHTML=adminHeader(t('resetUnlock'))
+    +`<button class="big-btn ${on?'green':'ghost'}" data-action="unlock" style="justify-content:center"><span>${on?'✅ ':'🔓 '}${t('unlockAll')}</span></button>
+      <button class="big-btn ghost" data-action="resetTrip" style="justify-content:center"><span>🔄 ${t('resetTrip')}</span></button>
+      <button class="big-btn ghost" data-action="factory" style="justify-content:center;color:var(--bad)"><span>⚠️ ${t('factory')}</span></button>`;
+  $('#aBack').onclick=()=>{ sfxTap(); openAdmin(); };
+  v.onclick=(e)=>{ const a=e.target.closest('[data-action]'); if(!a)return;
+    if(a.dataset.action==='unlock'){ state.trip.unlockAll=!state.trip.unlockAll; save(); adminReset(); }
+    else if(a.dataset.action==='resetTrip'){ askConfirm(t('resetTrip')+' ?', ()=>{ state.trip.days.forEach(d=>{ d.visits.forEach(x=>x.done=false); d.journal={notes:'',mood:0,favorite:'',stickers:[]}; d.quizDone=false; d.huntDone=false; d.challengeDone=false; }); state.trip.unlockAll=false; save(); adminReset(); }); }
+    else if(a.dataset.action==='factory'){ askConfirm(t('factory')+' ?', ()=>{ try{ localStorage.removeItem(SAVE_KEY); }catch(e){} location.reload(); }); }
+  };
 }
 
 /* ---- MODE FAMILLE (à tour de rôle, un seul essai — compétitif) ---- */
@@ -1919,6 +2106,7 @@ $('#langBtn').onclick=()=>{ sfxTap(); state.lang = state.lang==='he'?'en':'he'; 
   else if(act==='scr-free') openFree(); else if(act==='scr-passport') openPassport();
   else if(act==='scr-new') openNewProfile(); else if(act==='scr-trip') openTrip();
   else if(act==='scr-day' && currentDayId) openDay(currentDayId);
+  else if(act==='scr-admin') openAdmin();
 };
 $('#soundBtn').onclick=()=>{ state.sound=!state.sound; save(); ensureAudio(); if(state.sound) sfxTap(); if(!state.sound){ try{speechSynthesis.cancel();}catch(e){} } applyI18nStatic(); };
 
